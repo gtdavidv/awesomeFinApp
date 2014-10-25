@@ -1,11 +1,10 @@
 try {
-  simply.setText({
-    title: 'FinApp!',
-    body: 'No Pending Transactions'
-  }, true);
-
   function statusUpdate() {
     console.log("Running status update");
+    simply.setText({
+      title: 'FinApp!',
+      body: 'No Pending Transactions'
+    }, true);
     ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token=' + Pebble.getAccountToken() }, function (data) {
       if (data.indexOf("Payment") != -1) {
         console.log("Got payment prompt from server", data);
@@ -94,7 +93,9 @@ try {
       var combo = localStorage.getItem('combo') || '';
       console.log("Combo is ", combo);
       ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function(data){
+        simply.title("Set!");
         simply.body(data);
+
 
       });
       simply.off('singleClick');
