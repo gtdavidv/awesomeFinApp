@@ -32,7 +32,7 @@ try {
         combo += 'b';
       }
       localStorage.setItem('combo', combo);
-      var passwordRep = Array(combo.length() + 1).join("*");
+      var passwordRep = Array(combo.length + 1).join("*");
       simply.title("Enter secret");
       simply.body(passwordRep);
 
