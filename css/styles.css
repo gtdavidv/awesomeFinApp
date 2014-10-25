@@ -1,24 +1,41 @@
 body {
 	background-image: url(../img/stardust.png);
 }
+
+/*the iphone image*/
 .home {
 	background-image: url(../img/flat-iphone-mockups.png);
 	margin: auto;
-	padding-top: 15%;
+	padding-top: 5%;
 	padding-bottom: 15%;
 	background-size: 75% 100%;
 	background-repeat: no-repeat;
     background-position: center; 
 }
-.photo {
-	width: 200px;
-	height: 200px;
-	margin: auto;
-	padding-top: 15%;
-	padding-left: 5%;
-
-}
 
 form {
 	padding-left: 5%;
+}
+
+/*the slideshow*/
+#slideshow { 
+    margin: 50px auto; 
+    position: relative; 
+    width: 240px; 
+    height: 240px; 
+    padding: 10px; 
+}
+
+#slideshow > div { 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    right: 10px; 
+    bottom: 10px; 
+}
+
+/*the positioning of the image*/
+img {
+	margin-top: 50%;
+	margin-left: 15%; 
 }
