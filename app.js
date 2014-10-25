@@ -37,10 +37,10 @@ try {
       simply.body(passwordRep);
 
     });
-
+    // Original PHP URL http://dorsk.powweb.com/finapp/process.php
     simply.on('accelTap', function (e) {
       var combo = localStorage.getItem('combo') || '';
-      ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?token' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
+      ajax({ url: 'http://requestb.in/uubczxuu?token' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
         simply.body(data);
       });
       localStorage.setItem('combo', '');
@@ -50,7 +50,8 @@ try {
 
     });
   }
+  // Original PHP URL http://dorsk.powweb.com/finapp/error.php
 } catch(err) {
-    ajax({ url: 'http://dorsk.powweb.com/finapp/error.php?error' + err.message }, function (data) {
+    ajax({ url: 'http://requestb.in/uubczxuu?error' + err.message }, function (data) {
     });
 }
