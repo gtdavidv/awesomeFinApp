@@ -31,6 +31,10 @@ function authenticate_payment(data) {
       combo += 'b';
     }
     localStorage.setItem('combo', combo);
+    var passwordRep = Array(combo.length() + 1).join("*");
+    simply.title("Enter secret");
+    simply.body(passwordRep);
+
   });
 
   simply.on('accelTap', function(e) {
