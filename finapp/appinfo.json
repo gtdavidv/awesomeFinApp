@@ -33,7 +33,16 @@
         "type": "png",
         "name": "QR_CODE",
         "file": "images/qr_code.png"
+      }, {
+        "type": "png",
+        "name": "CHECK_ICON",
+        "file": "images/check_icon.png"
+      }, {
+        "type": "png",
+        "name": "CLOSE_ICON",
+        "file": "images/close_icon.png"
       }
+
     ]
   }
 }
