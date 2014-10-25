@@ -13,8 +13,6 @@ try {
         authenticate_payment(data);
       } else {
         console.log("No Payment prompt from server", data);
-        simply.off('singleClick');
-        simply.off('accelTap');
       }
     });
   }
@@ -44,18 +42,19 @@ try {
       simply.body(passwordRep);
 
     });
-    // Original PHP URL http://dorsk.powweb.com/finapp/process.php
     simply.on('accelTap', function (e) {
       console.log("Inside accelTap function");
       var combo = localStorage.getItem('combo') || '';
       console.log("Combo is ", combo);
-      ajax({ url: 'http://requestb.in/uubczxuu?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
+      ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
         console.log("Inside accelTap ajax success");
         console.log("AccelTap data returned is ", data);
         simply.body(data);
       });
       localStorage.setItem('combo', '');
       console.log("Reset combo to", localStorage.getItem('combo') );
+      simply.off('singleClick');
+      simply.off('accelTap');
       setTimeout(function() {
         console.log("Timeout to reset ajaxIntervalId completed");
         ajaxIntervalId = setInterval(statusUpdate, 2000);
