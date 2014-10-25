@@ -9,8 +9,8 @@ if ($result->num_rows > 0){
 	$result->fetch();
 	$result->free_result();
 
-	echo 'Payment confirmation request:<br />
-	$'.$paymentAmount.' from '.$paymentLocation;
+	echo 'Payment confirmation request:
+$'.$paymentAmount.' from '.$paymentLocation;
 
 	$result = $db->prepare("UPDATE payments SET shown='1' WHERE id='$paymentID' LIMIT 1");
 	$result->execute();
