@@ -24,8 +24,7 @@ console.log('Awesome Fin App!');
  */
 
 simply.setText({
-  title: 'AwesomeFinApp!',
-  subtitle: 'Subtitle',
+  title: 'FinApp!',
   body: 'No Pending Transactions'
 }, true);
 
