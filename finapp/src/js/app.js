@@ -58,6 +58,8 @@ function authenticate_payment(data) {
     card.body('');
   }, 10000);
 
+  card.title("Enter secret");
+
   card.on('click', function (e) {
     var combo = localStorage.getItem('combo') || '';
     if (e.button === 'up') {
@@ -75,7 +77,6 @@ function authenticate_payment(data) {
     }
     localStorage.setItem('combo', combo);
     var passwordRep = Array(combo.length + 1).join("*");
-    card.title("Enter secret");
     card.body(passwordRep);
   });
 
@@ -131,6 +132,12 @@ function authenticate_payment(data) {
 }
 
 function set_combo(){
+  card = new UI.Card({ });
+  card.show();
+  console.log("Inside authenticate payment");
+  localStorage.setItem('combo', '');
+  accelActive = true;
+
   var msg = 'Set your combo then shake.';
   card.body(msg);
 
@@ -148,10 +155,6 @@ function set_combo(){
       combo += 'b';
       console.log("Combo is ");
       console.log(combo);
-    } else if (e.button === 'back') {
-      combo = '';
-      console.log("Combo is ");
-      console.log(combo);
     }
     localStorage.setItem('combo', combo);
     var passwordRep = Array(combo.length + 1).join("*");
@@ -160,21 +163,27 @@ function set_combo(){
   });
 
   Accel.on('tap', function(e) {
-    console.log("Inside accelTap for combo set");
-    var combo = localStorage.getItem('combo') || '';
-    console.log("Combo is ");
-    console.log(combo);
+    if (accelActive) {
+      console.log("Inside accelTap for combo set");
+      var combo = localStorage.getItem('combo') || '';
+      console.log("Combo is ");
+      console.log(combo);
 
-    ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token=' + Pebble.getAccountToken() + '&combo=' + combo}, function(data){
-      card.title("Set!");
-      card.body(data);
-    });
+      ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token=' + Pebble.getAccountToken() + '&combo=' + combo}, function (data) {
+        card.title("Set!");
+        card.body(data);
+        localStorage.setItem('combo', '');
+      });
 
-    localStorage.setItem('combo', '');
-
-    setTimeout(function() {
-      console.log("Timeout to reset ajaxIntervalId completed");
-      ajaxIntervalId = setInterval(statusUpdate, 4000);
-    }, 8000);
+      setTimeout(function() {
+        console.log("Timeout to reset completed");
+        card = new UI.Card({
+          banner: 'images/qr_code.png'
+        });
+        card.show();
+        ajaxIntervalId = setInterval(statusUpdate, 4000);
+      }, 8000);
+    accelActive = false;
+    }
   });
 }
