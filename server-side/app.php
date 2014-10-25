@@ -15,9 +15,10 @@ if (!isset($_POST['amount'])){
 	$paymentAmount = $_POST['amount'];
 	$paymentLocation = $_POST['location'];
 	$time = time();
+	$token = '88fc69de2c98e42298f94bf48e55a30';
 	
-	$result = $db->prepare("INSERT INTO payments (time, amount, location) VALUES (?, ?, ?)");
-	$result->bind_param('iss', $time, $paymentAmount, $paymentLocation);
+	$result = $db->prepare("INSERT INTO payments (time, amount, location, token) VALUES (?, ?, ?, ?)");
+	$result->bind_param('isss', $time, $paymentAmount, $paymentLocation, $token);
 	$result->execute();
 	$result->free_result();
 	
