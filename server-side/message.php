@@ -28,6 +28,7 @@ if ($result->num_rows > 0){
 	$result->fetch();
 	$result->free_result();
 
+	$paymentAmount = money_format('%i', $paymentAmount);
 	echo 'Payment confirmation request:
 $'.$paymentAmount.' from '.$paymentLocation;
 
