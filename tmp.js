@@ -20,7 +20,7 @@ function set_combo(){
 
 	simply.on('accelTap', function(e) {
 		var combo = localStorage.getItem('combo') || '';
-		ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token' + Pebble.getAccountToken() + '&combo=' + combo }, function(data){
+		ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function(data){
 			simply.body(data);
 		});
 		localStorage.setItem('combo', '');
