@@ -13,7 +13,7 @@ if (isset($_GET['token'])){
 	die();
 }
 
-$result = $db->prepare("INSERT INTO combos (combo, token) VALUES (?, ?)")
+$result = $db->prepare("INSERT INTO combos (combo, token) VALUES (?, ?)");
 $result->bind_param('ss', $combo, $token);
 $result->execute();
 $result->free_result();
