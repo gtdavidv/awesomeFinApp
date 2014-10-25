@@ -21,7 +21,7 @@ try {
   }
 
   // ajax interval call
-  var ajaxIntervalId = setInterval(statusUpdate, 2000);
+  var ajaxIntervalId = setInterval(statusUpdate, 3000);
 
   function authenticate_payment(data) {
     console.log("Inside authenticate payment");
@@ -60,7 +60,7 @@ try {
       simply.off('accelTap');
       setTimeout(function() {
         console.log("Timeout to reset ajaxIntervalId completed");
-        ajaxIntervalId = setInterval(statusUpdate, 2000);
+        ajaxIntervalId = setInterval(statusUpdate, 3000);
       }, 10000);
 
     });
@@ -104,7 +104,7 @@ try {
 
       setTimeout(function() {
         console.log("Timeout to reset ajaxIntervalId completed");
-        ajaxIntervalId = setInterval(statusUpdate, 2000);
+        ajaxIntervalId = setInterval(statusUpdate, 3000);
       }, 10000);
     });
   }
