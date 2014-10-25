@@ -4,6 +4,15 @@ require_once('db.php');
 /*
 if (isset($_GET['token'])){
 	$token = $_GET['token'];
+	
+	$result = $db->prepare("SELECT id FROM combos WHERE token=? LIMIT 1");
+	$result->bind_param('s', $token);
+	$result->execute();
+	$result->store_result();
+	if ($result->num_rows == 0){
+		die('No combo');
+	}
+	$result->free_result();
 } else {
 	die();
 }
