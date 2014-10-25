@@ -38,9 +38,12 @@ simply.setText({
 
 // Real Set Interval
 setInterval(function() {
-  ajax({ url: 'http://dorsk.powweb.com/finapp/message.php' }, function(data){
+  ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token' + Pebble.getAccountToken() }, function(data){
     if(data.length > 0) {
       authenticate_payment(data);
+    } else {
+      simply.off('singleClick');
+      simply.off('accelTap');
     }
   });
 }, 2000);
@@ -49,12 +52,10 @@ setInterval(function() {
 function authenticate_payment(data) {
   simply.body(data);
 
-  setTimeout(function() {
-    var combo = localStorage.getItem('combo') || '';
-    ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?combo=' + combo }, function(data){
-      simply.body(data);
-    });
-  }, 15000);
+/*  setTimeout(function() {
+
+  }, 15000);*/
+
 
   simply.on('singleClick', function(e) {
     var combo = localStorage.getItem('combo') || '';
@@ -66,5 +67,13 @@ function authenticate_payment(data) {
       combo += 'b';
     }
     localStorage.setItem('combo', combo);
+  });
+
+  simply.on('accelTap', function(e) {
+    simply.subtitle('You tapped across ' + (e.direction > 0 ? '+' : '-') + e.axis + '!');
+    var combo = localStorage.getItem('combo') || '';
+    ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?combo=' + combo }, function(data){
+      simply.body(data);
+    });
   });
 }
