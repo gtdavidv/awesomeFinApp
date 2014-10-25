@@ -39,12 +39,17 @@ try {
     });
     // Original PHP URL http://dorsk.powweb.com/finapp/process.php
     simply.on('accelTap', function (e) {
+      console.log("Inside accelTap function");
       var combo = localStorage.getItem('combo') || '';
+      console.log("Reset combo to", combo);
       ajax({ url: 'http://requestb.in/uubczxuu?token' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
+        console.log("Inside accelTap ajax success");
+        console.log("AccelTap data returned is ", data);
         simply.body(data);
       });
       localStorage.setItem('combo', '');
       setTimeout(function() {
+        console.log("Timeout to reset ajaxIntervalId completed");
         ajaxIntervalId = setInterval(statusUpdate, 2000);
       }, 10000);
 
@@ -52,6 +57,7 @@ try {
   }
   // Original PHP URL http://dorsk.powweb.com/finapp/error.php
 } catch(err) {
+    console.log("Error", err.message);
     ajax({ url: 'http://requestb.in/uubczxuu?error' + err.message }, function (data) {
     });
 }
