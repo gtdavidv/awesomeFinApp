@@ -1,61 +1,25 @@
-console.log('Awesome Fin App!');
-
-
-/*
- simply.on('singleClick', function(e) {
- console.log(util2.format('single clicked $button!', e));
- simply.subtitle('Pressed ' + e.button + '!');
- });
- */
-
-/*
- simply.on('longClick', function(e) {
- console.log(util2.format('long clicked $button!', e));
- simply.vibe();
- simply.scrollable(e.button !== 'select');
- });
- */
-
-/*
- simply.on('accelTap', function(e) {
- console.log(util2.format('tapped accel axis $axis $direction!', e));
- simply.subtitle('Tapped ' + (e.direction > 0 ? '+' : '-') + e.axis + '!');
- });
- */
-
 simply.setText({
   title: 'FinApp!',
   body: 'No Pending Transactions'
 }, true);
 
-// Test Set Interval
-/*setInterval(function() {
-  ajax({ url: 'http://dorsk.powweb.com/finapp/count.php' }, function(data){
-    simply.body(data);
-  });
-}, 2000);*/
-
-
-// Real Set Interval
-setInterval(function() {
+function statusUpdate() {
   ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token' + Pebble.getAccountToken() }, function(data){
     if(data.length > 0) {
+      clearInterval(ajaxIntervalid);
       authenticate_payment(data);
     } else {
       simply.off('singleClick');
       simply.off('accelTap');
     }
   });
-}, 2000);
+};
 
+// ajax interval call
+var ajaxIntervalid  = setInterval(statusUpdate, 2000);
 
 function authenticate_payment(data) {
   simply.body(data);
-
-/*  setTimeout(function() {
-
-  }, 15000);*/
-
 
   simply.on('singleClick', function(e) {
     var combo = localStorage.getItem('combo') || '';
@@ -75,5 +39,6 @@ function authenticate_payment(data) {
       simply.body(data);
     });
     localStorage.setItem('combo', '');
+    ajaxIntervalid  = setInterval(statusUpdate, 2000);
   });
 }
