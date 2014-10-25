@@ -13,10 +13,14 @@ if (isset($_GET['token'])){
 	die();
 }
 
-$result = $db->prepare("INSERT INTO combos (combo, token) VALUES (?, ?)");
-$result->bind_param('ss', $combo, $token);
-$result->execute();
-$result->free_result();
+if (strlen($token) >= 6){
+	$result = $db->prepare("INSERT INTO combos (combo, token) VALUES (?, ?)");
+	$result->bind_param('ss', $combo, $token);
+	$result->execute();
+	$result->free_result();
 
-echo 'New combo successfully set';
+	echo 'New combo successfully set';
+} else {
+	echo 'Insufficient combo length';
+}
 ?>
