@@ -7,7 +7,8 @@
 var UI = require('ui');
 var ajax = require('ajax');
 var Accel = require('ui/accel');
-var accelActive = false;
+var accelActive1 = false;
+var accelActive2 = false;
 var Vibe = require('ui/vibe');
 Accel.init();
 
@@ -18,8 +19,6 @@ card.show();
 
 function statusUpdate() {
   console.log("Running status update");
-//  card.title('');
-//  card.body('');
   ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token=' + Pebble.getAccountToken() }, function (data) {
     if (data.indexOf("Payment") != -1) {
       console.log("Got payment prompt from server");
@@ -50,7 +49,7 @@ function authenticate_payment(data) {
   console.log("Inside authenticate payment");
   card.body(data);
   localStorage.setItem('combo', '');
-  accelActive = true;
+  accelActive1 = true;
 
   var passwordClearInterval = setInterval(function() {
     var combo = localStorage.getItem('combo') || '';
@@ -80,9 +79,8 @@ function authenticate_payment(data) {
     card.body(passwordRep);
   });
 
-
   Accel.on('tap', function (e) {
-    if (accelActive) {
+    if (accelActive1) {
       clearInterval(passwordClearInterval);
       console.log("Inside accelTap function");
       var combo = localStorage.getItem('combo') || '';
@@ -110,24 +108,19 @@ function authenticate_payment(data) {
           });
           card.show();
         }
-
-
       });
-
       localStorage.setItem('combo', '');
 
       setTimeout(function() {
         console.log("Timeout to reset ajaxIntervalId completed");
         card = new UI.Card({
-//  title: 'FinApp!',
-//  body: 'No Pending Transactions',
           banner: 'images/qr_code.png'
         });
         card.show();
         ajaxIntervalId = setInterval(statusUpdate, 4000);
       }, 8000);
     }
-    accelActive = false;
+    accelActive1 = false;
   });
 }
 
@@ -136,7 +129,7 @@ function set_combo(){
   card.show();
   console.log("Inside authenticate payment");
   localStorage.setItem('combo', '');
-  accelActive = true;
+  accelActive2 = true;
 
   var msg = 'Set your combo then shake.';
   card.body(msg);
@@ -163,7 +156,7 @@ function set_combo(){
   });
 
   Accel.on('tap', function(e) {
-    if (accelActive) {
+    if (accelActive2) {
       console.log("Inside accelTap for combo set");
       var combo = localStorage.getItem('combo') || '';
       console.log("Combo is ");
@@ -183,7 +176,7 @@ function set_combo(){
         card.show();
         ajaxIntervalId = setInterval(statusUpdate, 4000);
       }, 8000);
-    accelActive = false;
+    accelActive2 = false;
     }
   });
 }
