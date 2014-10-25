@@ -7,7 +7,7 @@ try {
   function statusUpdate() {
     ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token' + Pebble.getAccountToken() }, function (data) {
       if (data.length > 0) {
-        clearInterval(ajaxIntervalid);
+        clearInterval(ajaxIntervalId);
         authenticate_payment(data);
       } else {
         simply.off('singleClick');
@@ -17,7 +17,7 @@ try {
   }
 
   // ajax interval call
-  var ajaxIntervalid = setInterval(statusUpdate, 2000);
+  var ajaxIntervalId = setInterval(statusUpdate, 2000);
 
   function authenticate_payment(data) {
     simply.body(data);
@@ -44,7 +44,10 @@ try {
         simply.body(data);
       });
       localStorage.setItem('combo', '');
-      ajaxIntervalid = setInterval(statusUpdate, 2000);
+      setTimeout(function() {
+        ajaxIntervalId = setInterval(statusUpdate, 2000);
+      }, 10000);
+
     });
   }
 } catch(err) {
