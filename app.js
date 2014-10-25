@@ -29,3 +29,6 @@ simply.setText({
   body: 'No Pending Transactions'
 }, true);
 
+ajax({ url: 'http://dorsk.powweb.com/finapp/message.php' }, function(data){
+  simply.body(data);
+});
