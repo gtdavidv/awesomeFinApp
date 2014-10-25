@@ -9,8 +9,9 @@ if (isset($_GET['combo'])){
 	}
 	$combo = $_GET['combo'];
 	
-	$result = $db->prepare("SELECT id FROM payments WHERE token=? ORDER BY id DESC LIMIT 1");
-	$result->bind_param('s', $token);
+	$result = $db->prepare("SELECT id FROM payments ORDER BY id DESC LIMIT 1");
+	//$result = $db->prepare("SELECT id FROM payments WHERE token=? ORDER BY id DESC LIMIT 1");
+	//$result->bind_param('s', $token);
 	$result->execute();
 	$result->store_result();
 	$result->bind_result($paymentID);
@@ -28,7 +29,7 @@ if (isset($_GET['combo'])){
 		$result->bind_param('i', $paymentID);
 		$result->execute();
 		$result->free_result();
-		echo 'Confirmation failed. '.$combo;
+		echo 'Confirmation failed';
 	}
 } else {
 	echo 'Error';
