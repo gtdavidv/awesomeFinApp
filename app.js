@@ -70,10 +70,10 @@ function authenticate_payment(data) {
   });
 
   simply.on('accelTap', function(e) {
-    simply.subtitle('You tapped across ' + (e.direction > 0 ? '+' : '-') + e.axis + '!');
     var combo = localStorage.getItem('combo') || '';
-    ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?combo=' + combo }, function(data){
+    ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?token' + Pebble.getAccountToken() + '&combo=' + combo }, function(data){
       simply.body(data);
     });
+    localStorage.setItem('combo', '');
   });
 }
