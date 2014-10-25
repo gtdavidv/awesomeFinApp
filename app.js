@@ -28,6 +28,11 @@ simply.setText({
   body: 'No Pending Transactions'
 }, true);
 
+setInterval(function() {
+  simply.vibe('short');
+}, 2000);
+
+// Ajax Call
 ajax({ url: 'http://dorsk.powweb.com/finapp/message.php' }, function(data){
   simply.body(data);
 });
