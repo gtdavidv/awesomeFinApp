@@ -18,7 +18,7 @@ if (isset($_GET['combo'])){
 		$result->fetch();
 		$result->free_result();
 	} else {
-		echo 'Confirmation failed. No combo.';
+		die('Confirmation failed. No combo.');
 	}
 	
 	//$result = $db->prepare("SELECT id FROM payments ORDER BY id DESC LIMIT 1");
