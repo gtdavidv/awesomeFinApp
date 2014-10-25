@@ -1,0 +1,24 @@
+body {
+	background-image: url(../img/stardust.png);
+}
+.home {
+	background-image: url(../img/flat-iphone-mockups.png);
+	margin: auto;
+	padding-top: 15%;
+	padding-bottom: 15%;
+	background-size: 75% 100%;
+	background-repeat: no-repeat;
+    background-position: center; 
+}
+.photo {
+	width: 200px;
+	height: 200px;
+	margin: auto;
+	padding-top: 15%;
+	padding-left: 5%;
+
+}
+
+form {
+	padding-left: 5%;
+}
