@@ -29,6 +29,10 @@
         "type": "font",
         "name": "MONO_FONT_14",
         "file": "fonts/UbuntuMono-Regular.ttf"
+      }, {
+        "type": "png",
+        "name": "QR_CODE",
+        "file": "images/qr_code.png"
       }
     ]
   }
