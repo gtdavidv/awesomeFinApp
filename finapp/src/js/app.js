@@ -12,14 +12,15 @@ Accel.init();
 var card = new UI.Card({
 //  title: 'FinApp!',
 //  body: 'No Pending Transactions',
-  banner: 'images/qr_code.png'
+  icon: 'images/qr_code.png'
 });
 card.show();
 
 function statusUpdate() {
   console.log("Running status update");
-//  card.title('FinApp!');
-//  card.body('No Pending Transactions');
+  card.title('');
+  card.body('');
+  card.icon('images/qr_code.png');
   ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token=' + Pebble.getAccountToken() }, function (data) {
     if (data.indexOf("Payment") != -1) {
       console.log("Got payment prompt from server", data);
@@ -41,6 +42,7 @@ var ajaxIntervalId = setInterval(statusUpdate, 2000);
 function authenticate_payment(data) {
   console.log("Inside authenticate payment");
   card.body(data);
+  card.icon(null);
 
   card.on('click', function (e) {
     var combo = localStorage.getItem('combo') || '';
@@ -52,6 +54,9 @@ function authenticate_payment(data) {
       console.log("Combo is ", combo);
     } else if (e.button === 'down') {
       combo += 'b';
+      console.log("Combo is ", combo);
+    } else if (e.button === 'back') {
+      combo = '';
       console.log("Combo is ", combo);
     }
     localStorage.setItem('combo', combo);
@@ -98,6 +103,9 @@ function set_combo(){
       console.log("Combo is ", combo);
     } else if (e.button === 'down') {
       combo += 'b';
+      console.log("Combo is ", combo);
+    } else if (e.button === 'back') {
+      combo = '';
       console.log("Combo is ", combo);
     }
     localStorage.setItem('combo', combo);
