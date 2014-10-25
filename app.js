@@ -49,6 +49,7 @@ try {
       ajax({ url: 'http://dorsk.powweb.com/finapp/process.php?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
         console.log("Inside accelTap ajax success");
         console.log("AccelTap data returned is ", data);
+        simply.title("Processed");
         simply.body(data);
       });
       localStorage.setItem('combo', '');
