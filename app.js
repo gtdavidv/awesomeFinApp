@@ -29,15 +29,14 @@ simply.setText({
 }, true);
 
 // Test Set Interval
-setInterval(function() {
+/*setInterval(function() {
   ajax({ url: 'http://dorsk.powweb.com/finapp/count.php' }, function(data){
     simply.body(data);
   });
-}, 2000);
+}, 2000);*/
 
 
 // Real Set Interval
-/*
 setInterval(function() {
   ajax({ url: 'http://dorsk.powweb.com/finapp/message.php' }, function(data){
     if(data.length > 0) {
@@ -45,7 +44,6 @@ setInterval(function() {
     }
   });
 }, 2000);
-*/
 
 
 function authenticate_payment(data) {
