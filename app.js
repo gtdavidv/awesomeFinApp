@@ -44,7 +44,6 @@ try {
       var passwordRep = Array(combo.length + 1).join("*");
       simply.title("Enter secret");
       simply.body(passwordRep);
-
     });
     simply.on('accelTap', function (e) {
       console.log("Inside accelTap function");
@@ -69,29 +68,43 @@ try {
   }
 
   function set_combo(){
-    var msg = 'First log in. Set your combo then shake.';
+    var msg = 'Set your combo then shake.';
     simply.body(msg);
 
     simply.on('singleClick', function(e) {
       var combo = localStorage.getItem('combo') || '';
       if (e.button === 'up') {
         combo += 't';
+        console.log("Combo is ", combo);
       } else if (e.button === 'select') {
         combo += 'm';
+        console.log("Combo is ", combo);
       } else if (e.button === 'down') {
         combo += 'b';
+        console.log("Combo is ", combo);
       }
       localStorage.setItem('combo', combo);
+      var passwordRep = Array(combo.length + 1).join("*");
+      simply.title("Your Code");
+      simply.body(passwordRep);
     });
 
     simply.on('accelTap', function(e) {
+      console.log("Inside accelTap for combo set");
       var combo = localStorage.getItem('combo') || '';
+      console.log("Combo is ", combo);
       ajax({ url: 'http://dorsk.powweb.com/finapp/newcombo.php?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function(data){
         simply.body(data);
+
       });
+      simply.off('singleClick');
+      simply.off('accelTap');
       localStorage.setItem('combo', '');
 
-      setInterval(function(){ statusUpdate(); }, 2000);
+      setTimeout(function() {
+        console.log("Timeout to reset ajaxIntervalId completed");
+        ajaxIntervalId = setInterval(statusUpdate, 2000);
+      }, 10000);
     });
   }
 
