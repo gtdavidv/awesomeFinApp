@@ -6,7 +6,7 @@ try {
 
   function statusUpdate() {
     console.log("Running status update");
-    ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token' + Pebble.getAccountToken() }, function (data) {
+    ajax({ url: 'http://dorsk.powweb.com/finapp/message.php?token=' + Pebble.getAccountToken() }, function (data) {
       if (data.length > 0) {
         console.log("Got prompt from server", data);
         clearInterval(ajaxIntervalId);
@@ -49,7 +49,7 @@ try {
       console.log("Inside accelTap function");
       var combo = localStorage.getItem('combo') || '';
       console.log("Combo is ", combo);
-      ajax({ url: 'http://requestb.in/uubczxuu?token' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
+      ajax({ url: 'http://requestb.in/uubczxuu?token=' + Pebble.getAccountToken() + '&combo=' + combo }, function (data) {
         console.log("Inside accelTap ajax success");
         console.log("AccelTap data returned is ", data);
         simply.body(data);
@@ -66,6 +66,6 @@ try {
   // Original PHP URL http://dorsk.powweb.com/finapp/error.php
 } catch(err) {
     console.log("Error", err.message);
-    ajax({ url: 'http://requestb.in/uubczxuu?error' + err.message }, function (data) {
+    ajax({ url: 'http://requestb.in/uubczxuu?error=' + err.message }, function (data) {
     });
 }
